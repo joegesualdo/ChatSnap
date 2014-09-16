@@ -7,6 +7,7 @@
 //
 
 #import "SignupViewController.h"
+#import "MBProgressHUD.h"
 #import <Parse/Parse.h>
 
 @interface SignupViewController ()
@@ -54,20 +55,34 @@
   user.username = username;
   user.password = password;
   user.email = email;
-  
+  [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+  [self dismissKeyboard];
   [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     if (!error) {
+      // perform UI changes on main thread
+      dispatch_async(dispatch_get_main_queue(), ^{
+        // Show HUD
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         // Whenver we have a view controller nested in a navigation controler we have a property of navigationController on it (self). And then we can access any of the views within that navigation controller.
         // In this case, we want to navigate to the rootViewController (the inbox view)
         [self.navigationController popToRootViewControllerAnimated:YES];
+      });
     } else {
-      NSString *errorString = [error userInfo][@"error"];
-      // Show the errorString somewhere and let the user try again.
-        NSLog(@"Error: %@",errorString);
+      // perform UI changes on main thread
+      dispatch_async(dispatch_get_main_queue(), ^{
+        // Hide HUD once once we get a response
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Error" message:[error.userInfo objectForKey:@"error"] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alertView show];
+      });
     }
   }];
   return user;
+}
+
+-(void)dismissKeyboard{
+    [self.usernameField resignFirstResponder];
+    [self.emailField resignFirstResponder];
+    [self.passwordField resignFirstResponder];
 }
 @end

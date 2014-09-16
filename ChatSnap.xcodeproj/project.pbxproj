@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A95C75359814CF3A5CDE759 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37A188F9726D4E2B8847F554 /* libPods.a */; };
 		6451C9EECC5F4D0D8999BFF4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E55CBDD1798D41F8A00D1023 /* Foundation.framework */; };
 		87A59E7234484EB19D9069B4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CD6CF70C7D214219B42351B9 /* main.m */; };
 		B066982C9BE04597B1E5A65B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 17BACE59B53048C89B4DC350 /* AppDelegate.m */; };
@@ -47,6 +48,8 @@
 		16136917675848408B5F823B /* ChatSnap-Prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ChatSnap-Prefix.pch"; sourceTree = "<group>"; };
 		17BACE59B53048C89B4DC350 /* AppDelegate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		20C8B8E9A5A24C2F81F92672 /* ChatSnap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatSnap.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		37A188F9726D4E2B8847F554 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3CDD07C698F7420AAC9633F0 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		6A677A68AEF94C17A458A1EE /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		74DD5327F60042709D29C0C5 /* UnitTests-Prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Prefix.pch"; sourceTree = "<group>"; };
 		CB9BC13F0ED644F1A7F4E4CE /* UnitTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
@@ -104,6 +107,7 @@
 				E9DB229219C8B4BB009C07C8 /* Parse.framework in Frameworks */,
 				E9DB229319C8B4BB009C07C8 /* ParseFacebookUtils.framework in Frameworks */,
 				E9DB229119C8B4BB009C07C8 /* Bolts.framework in Frameworks */,
+				1A95C75359814CF3A5CDE759 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +172,7 @@
 				E9DB229D19C8B528009C07C8 /* SystemConfiguration.framework */,
 				BEE4BDD29D0D4FC589F37D0B /* iOS */,
 				06AABA548B584531B6001838 /* libPods-unit_tests.a */,
+				37A188F9726D4E2B8847F554 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -196,6 +201,7 @@
 				2EB680A0F51A45FCB424AA63 /* Frameworks */,
 				C4D14598F0024092A3DABA8E /* Products */,
 				EFE6E3C9EB994F5089574E2C /* Pods-unit_tests.xcconfig */,
+				3CDD07C698F7420AAC9633F0 /* Pods.xcconfig */,
 			);
 			indentWidth = 4;
 			sourceTree = "<group>";
@@ -363,10 +369,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4A173FA5277E457FA08A67A8 /* Build configuration list for PBXNativeTarget "ChatSnap" */;
 			buildPhases = (
+				579B1BBFC68A4791AB83BEA0 /* Check Pods Manifest.lock */,
 				6F48A3C28DCA418082585042 /* Sources */,
 				BFA1F9B1B0BC4C16B28B7ED7 /* Frameworks */,
 				C29C58ED79F8420198311928 /* Resources */,
 				C6D8B62833E54D918EE3B731 /* Warn for TODO and FIXME comments */,
+				8B417B9B131645ADB67460D2 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -425,6 +433,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		579B1BBFC68A4791AB83BEA0 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		5E4331C885724B4FA3527CC8 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -453,6 +476,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8B417B9B131645ADB67460D2 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C6D8B62833E54D918EE3B731 /* Warn for TODO and FIXME comments */ = {
@@ -504,6 +542,7 @@
 /* Begin XCBuildConfiguration section */
 		1CD2AFAA2C1A412B8DB10BA4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3CDD07C698F7420AAC9633F0 /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
@@ -525,6 +564,18 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "ChatSnap/Resources/Other-Sources/ChatSnap-Info.plist";
 				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Accounts,
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					CoreLocation,
+					"-framework",
+					Security,
+					"-framework",
+					Social,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -533,6 +584,7 @@
 		};
 		36741DF414934B75A681C350 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3CDD07C698F7420AAC9633F0 /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
@@ -555,6 +607,18 @@
 				OTHER_CPLUSPLUSFLAGS = (
 					"-DNS_BLOCK_ASSERTIONS=1",
 					"$(inherited)",
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					Accounts,
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					CoreLocation,
+					"-framework",
+					Security,
+					"-framework",
+					Social,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";

@@ -1,6 +1,7 @@
 platform :ios, '7.0'
 
-# Add Application pods here
+pod 'MBProgressHUD'
+pod 'Facebook-iOS-SDK'
 
 target :unit_tests, :exclusive => true do
   link_with 'UnitTests'
