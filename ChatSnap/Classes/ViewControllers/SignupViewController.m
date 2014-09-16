@@ -51,12 +51,14 @@
  *  @return The PFUser object
  */
 - (PFUser *)signupUserWithUsername:(NSString *)username password:(NSString *)password email:(NSString *)email {
+    // Create a new Parse user object
   PFUser *user = [PFUser user];
   user.username = username;
   user.password = password;
   user.email = email;
   [MBProgressHUD showHUDAddedTo:self.view animated:YES];
   [self dismissKeyboard];
+  // A parse method that signs up a user
   [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     if (!error) {
       // perform UI changes on main thread
