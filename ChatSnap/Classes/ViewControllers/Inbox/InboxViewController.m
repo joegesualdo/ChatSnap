@@ -48,4 +48,11 @@
     return cell;
 }
 
+
+- (IBAction)logout:(UIBarButtonItem *)sender {
+  // logs the currentUser out
+  [PFUser logOut];
+  // performs a segue to login page
+  [self performSegueWithIdentifier:@"showLogin" sender:self];
+}
 @end
