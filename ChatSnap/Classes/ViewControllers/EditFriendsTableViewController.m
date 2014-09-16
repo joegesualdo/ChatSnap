@@ -60,4 +60,18 @@
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // find the specific table view cell that was clicked
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    // Show and hide checkmark when clicked
+    if (cell.accessoryType == UITableViewCellAccessoryNone) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else{
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
+}
+
 @end
