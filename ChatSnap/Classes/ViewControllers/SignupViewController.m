@@ -20,6 +20,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    
   
   // Put focus for keyboard on username
   [self.usernameField becomeFirstResponder];

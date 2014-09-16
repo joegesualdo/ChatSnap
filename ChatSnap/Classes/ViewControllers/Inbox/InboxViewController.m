@@ -48,6 +48,16 @@
     return cell;
 }
 
+#pragma mark - Navigation
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"showLogin"]) {
+        // THis will hide the tab bar at the bottom of the login screen
+        [segue.destinationViewController setHidesBottomBarWhenPushed:YES];
+    }
+}
+
 
 - (IBAction)logout:(UIBarButtonItem *)sender {
   // logs the currentUser out
