@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
 @interface EditFriendsTableViewController : UITableViewController
 
 @property(strong, nonatomic)NSArray *allUsers;
+@property(strong, nonatomic)PFUser *currentUser;
 
 @end

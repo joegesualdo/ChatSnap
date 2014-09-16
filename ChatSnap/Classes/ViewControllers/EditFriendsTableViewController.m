@@ -7,7 +7,6 @@
 //
 
 #import "EditFriendsTableViewController.h"
-#import <Parse/Parse.h>
 
 @interface EditFriendsTableViewController ()
 
@@ -35,6 +34,9 @@
             });
         }
     }];
+    
+    // sets the current user to self.currentUser
+    self.currentUser = [PFUser currentUser];
 }
 
 #pragma mark - Table view data source
@@ -53,6 +55,9 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"friendCell" forIndexPath:indexPath];
     
+    // removes the gray background on selection when clicked
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     PFUser *user = self.allUsers[indexPath.row];
     
     cell.textLabel.text = user.username;
@@ -65,13 +70,28 @@
     // find the specific table view cell that was clicked
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
+    PFUser *user = self.allUsers[indexPath.row];
+    
+    // Defines a relation
+    PFRelation *friendsRelation = [self.currentUser relationForKey:@"friendsRelation"];
+    
     // Show and hide checkmark when clicked
     if (cell.accessoryType == UITableViewCellAccessoryNone) {
+        // this adds the friend locally
+        [friendsRelation addObject:user];
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else{
         cell.accessoryType = UITableViewCellAccessoryNone;
+        // this adds the friend locally
+        [friendsRelation removeObject:user];
     }
     
+    // This will save the relations we created above
+    [self.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (error){
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
 }
 
 @end
