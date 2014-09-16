@@ -25,6 +25,8 @@
 		E9DB22A519C8B528009C07C8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DB229B19C8B528009C07C8 /* Security.framework */; };
 		E9DB22A619C8B528009C07C8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DB229C19C8B528009C07C8 /* StoreKit.framework */; };
 		E9DB22A719C8B528009C07C8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DB229D19C8B528009C07C8 /* SystemConfiguration.framework */; };
+		E9DB22AD19C8B909009C07C8 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DB22AC19C8B909009C07C8 /* LoginViewController.m */; };
+		E9DB22B019C8B91A009C07C8 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DB22AF19C8B91A009C07C8 /* SignupViewController.m */; };
 		EB6EC6E95A5148E99F2204C1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F78E54B83FA548D4A0F8C846 /* Images.xcassets */; };
 		FC5F24EAA86E45E99BB2F684 /* libPods-unit_tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06AABA548B584531B6001838 /* libPods-unit_tests.a */; };
 /* End PBXBuildFile section */
@@ -67,6 +69,10 @@
 		E9DB229B19C8B528009C07C8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		E9DB229C19C8B528009C07C8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		E9DB229D19C8B528009C07C8 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		E9DB22AB19C8B909009C07C8 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = ../../../../../../Documents/LoginViewController.h; sourceTree = "<group>"; };
+		E9DB22AC19C8B909009C07C8 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = ../../../../../../Documents/LoginViewController.m; sourceTree = "<group>"; };
+		E9DB22AE19C8B91A009C07C8 /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
+		E9DB22AF19C8B91A009C07C8 /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
 		EFE6E3C9EB994F5089574E2C /* Pods-unit_tests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.xcconfig"; path = "Pods/Pods-unit_tests.xcconfig"; sourceTree = "<group>"; };
 		F78E54B83FA548D4A0F8C846 /* Images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,6 +120,8 @@
 		030D19A72F1848F1BA62BA71 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E9DB22A919C8B8D7009C07C8 /* Signup */,
+				E9DB22A819C8B8CD009C07C8 /* Login */,
 				E9DB228A19C8AEC0009C07C8 /* Inbox */,
 			);
 			path = ViewControllers;
@@ -268,6 +276,24 @@
 				E9DB228C19C8AEEB009C07C8 /* InboxViewController.m */,
 			);
 			path = Inbox;
+			sourceTree = "<group>";
+		};
+		E9DB22A819C8B8CD009C07C8 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				E9DB22AB19C8B909009C07C8 /* LoginViewController.h */,
+				E9DB22AC19C8B909009C07C8 /* LoginViewController.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		E9DB22A919C8B8D7009C07C8 /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				E9DB22AE19C8B91A009C07C8 /* SignupViewController.h */,
+				E9DB22AF19C8B91A009C07C8 /* SignupViewController.m */,
+			);
+			name = Signup;
 			sourceTree = "<group>";
 		};
 		EAC56BD6221F4FBA88F6D339 /* ChatSnap */ = {
@@ -450,9 +476,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9DB22AD19C8B909009C07C8 /* LoginViewController.m in Sources */,
 				B066982C9BE04597B1E5A65B /* AppDelegate.m in Sources */,
 				87A59E7234484EB19D9069B4 /* main.m in Sources */,
 				E9DB228D19C8AEEB009C07C8 /* InboxViewController.m in Sources */,
+				E9DB22B019C8B91A009C07C8 /* SignupViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

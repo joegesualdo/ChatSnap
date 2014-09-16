@@ -82,10 +82,10 @@
             </objects>
             <point key="canvasLocation" x="878" y="20"/>
         </scene>
-        <!--View Controller - ChatSnap-->
+        <!--Login View Controller - ChatSnap-->
         <scene sceneID="IVQ-rH-y9Z">
             <objects>
-                <viewController id="606-ci-Ds6" sceneMemberID="viewController">
+                <viewController id="606-ci-Ds6" customClass="LoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="P20-4l-7Fu"/>
                         <viewControllerLayoutGuide type="bottom" id="BbL-WB-Rj6"/>
@@ -112,6 +112,9 @@
                                 <state key="normal" title="Log In">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="login:" destination="606-ci-Ds6" eventType="touchUpInside" id="2lk-H8-fSw"/>
+                                </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Don't have an account?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fvi-gf-h6m">
                                 <rect key="frame" x="20" y="187" width="183" height="21"/>
@@ -135,6 +138,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="ChatSnap" id="3Na-BY-cCk"/>
+                    <connections>
+                        <outlet property="passwordField" destination="lOp-Pj-qdt" id="g2e-3R-15Z"/>
+                        <outlet property="usernameField" destination="FkY-TO-VOd" id="rTj-f7-Pfv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7eS-5n-cry" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -172,10 +179,10 @@
             </objects>
             <point key="canvasLocation" x="878" y="-673"/>
         </scene>
-        <!--View Controller-->
+        <!--Signup View Controller-->
         <scene sceneID="wFl-Qo-paL">
             <objects>
-                <viewController id="XfO-NI-XmV" sceneMemberID="viewController">
+                <viewController id="XfO-NI-XmV" customClass="SignupViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qSh-A3-gxY"/>
                         <viewControllerLayoutGuide type="bottom" id="BMJ-WY-0Ee"/>
@@ -208,11 +215,19 @@
                                 <state key="normal" title="Sign Up">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="signup:" destination="XfO-NI-XmV" eventType="touchUpInside" id="JdP-n9-2wf"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="0PC-R4-k3m"/>
+                    <connections>
+                        <outlet property="emailField" destination="uyq-YO-F0D" id="FSe-fm-nlF"/>
+                        <outlet property="passwordField" destination="Xo9-O4-fTV" id="b7m-2c-xFw"/>
+                        <outlet property="usernameField" destination="Qhx-HD-3Ig" id="9Yx-pS-KZO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UIA-Wc-etV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
