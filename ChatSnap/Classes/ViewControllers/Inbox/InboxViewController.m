@@ -19,8 +19,14 @@
 {
     [super viewDidLoad];
     
+    // this gets the current user
+    PFUser *currentUser = [PFUser currentUser];
+    // Only show the root screen if user is logged in
+    if (!currentUser) {
+      [self performSegueWithIdentifier:@"showLogin" sender:self];
+    }
+    
     // Since the segway we created from the inbox to the login, doen't have a button trigger, we must trigger the segue programatically.
-    [self performSegueWithIdentifier:@"showLogin" sender:self];
 }
 
 #pragma mark - Table view data source
