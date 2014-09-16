@@ -10,6 +10,7 @@
 		6451C9EECC5F4D0D8999BFF4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E55CBDD1798D41F8A00D1023 /* Foundation.framework */; };
 		87A59E7234484EB19D9069B4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CD6CF70C7D214219B42351B9 /* main.m */; };
 		B066982C9BE04597B1E5A65B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 17BACE59B53048C89B4DC350 /* AppDelegate.m */; };
+		E9DB228919C8A6DB009C07C8 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DB228819C8A6DB009C07C8 /* MainStoryboard.storyboard */; };
 		EB6EC6E95A5148E99F2204C1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F78E54B83FA548D4A0F8C846 /* Images.xcassets */; };
 		FC5F24EAA86E45E99BB2F684 /* libPods-unit_tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06AABA548B584531B6001838 /* libPods-unit_tests.a */; };
 /* End PBXBuildFile section */
@@ -36,6 +37,7 @@
 		CD6CF70C7D214219B42351B9 /* main.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D25F8CBF5F7E438DB1DB43FC /* AppDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E55CBDD1798D41F8A00D1023 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		E9DB228819C8A6DB009C07C8 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		EFE6E3C9EB994F5089574E2C /* Pods-unit_tests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unit_tests.xcconfig"; path = "Pods/Pods-unit_tests.xcconfig"; sourceTree = "<group>"; };
 		F78E54B83FA548D4A0F8C846 /* Images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -160,6 +162,7 @@
 		88B9E6FE8C7C4E7A8F264406 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				E9DB228819C8A6DB009C07C8 /* MainStoryboard.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9DB228919C8A6DB009C07C8 /* MainStoryboard.storyboard in Resources */,
 				EB6EC6E95A5148E99F2204C1 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
