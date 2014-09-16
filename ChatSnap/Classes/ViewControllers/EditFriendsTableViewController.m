@@ -7,6 +7,7 @@
 //
 
 #import "EditFriendsTableViewController.h"
+#import <Parse/Parse.h>
 
 @interface EditFriendsTableViewController ()
 
@@ -17,6 +18,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // This creates a query for all the users
+    // [PFUser query] is a query for ALL the users
+    PFQuery *query = [PFUser query];
+    [query orderByAscending:@"username"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        } else{
+            self.allUsers = objects;
+            NSLog(@"Users: %@", self.allUsers);
+            // We need to reload the table, because table view loads before self.allUsers is populated
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+        }
+    }];
 }
 
 #pragma mark - Table view data source
@@ -28,7 +46,18 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return [self.allUsers count];
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"friendCell" forIndexPath:indexPath];
+    
+    PFUser *user = self.allUsers[indexPath.row];
+    
+    cell.textLabel.text = user.username;
+    
+    return cell;
 }
 
 @end
