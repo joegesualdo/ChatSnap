@@ -7,6 +7,7 @@
 //
 
 #import "InboxViewController.h"
+#import <Parse/Parse.h>
 
 @interface InboxViewController ()
 
