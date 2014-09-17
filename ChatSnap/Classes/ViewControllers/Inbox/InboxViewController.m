@@ -66,6 +66,14 @@
     
     PFObject *message = self.messages[indexPath.row];
     
+    NSString *fileType = [message objectForKey:@"fileType"];
+    
+    if ([fileType isEqualToString:@"image"]) {
+        //all default cell have an image view on the left side
+        cell.imageView.image = [UIImage imageNamed:@"icon_image"];
+    } else{
+        cell.imageView.image = [UIImage imageNamed:@"icon_video"];
+    }
     cell.textLabel.text = [message objectForKey:@"senderName"];
     return cell;
 }
