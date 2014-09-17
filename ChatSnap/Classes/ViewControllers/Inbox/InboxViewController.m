@@ -106,6 +106,19 @@
         [self.moviePlayer setFullscreen:YES animated:YES];
     }
     
+    // Delete!
+    NSMutableArray *recipientsIds = [NSMutableArray arrayWithArray:[self.selectedMessage objectForKey:@"recipientIds"]];
+    // If you are the only recipient in the recipientId array, then delete the message
+    if ([recipientsIds count] == 1){
+        [self.selectedMessage deleteInBackground];
+    } else{
+        // this updates it locally
+        [recipientsIds removeObject:[[PFUser currentUser]objectId]];
+        // Save the data to parse
+        [self.selectedMessage setObject:recipientsIds forKey:@"recipientIds"];
+        [self.selectedMessage saveInBackground];
+    }
+    
 }
 
 #pragma mark - Navigation
