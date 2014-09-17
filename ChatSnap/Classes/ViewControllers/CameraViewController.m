@@ -33,32 +33,36 @@
         }
     }];
     
-    // WHy is this in viewWillAppear and NOT viewDidLoad?
-    // Because viewDidLoad will only get called the first time the view loads, so if we dismiss the camera and come back, it wont dispay. BUt viewWillAppear is run everytime this view shows
-    // Setup UIImagePicker =======
-    // allocate and initialize a ui image picker controller and put it in our property
-    self.imagePicker = [[UIImagePickerController alloc] init];
-    // tells the image picker to use CameraViewController as it's delegate
-    self.imagePicker.delegate = self;
-    // We don't want the user editiing
-    self.imagePicker.allowsEditing = NO;
-    // limits videos to 10 seconds
-    self.imagePicker.videoMaximumDuration = 10;
-    // Setup a conditional, so this works on simulator. Because simulator doesn't have a camera
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        // sets the type to be a camera
-        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    } else {
-        // photo library lets the user choose from all their albums, so can choose from things like the instagram album
-        self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        // saved photo album is limited to photos in the camera roll, but not photos in an album like the instagram album
-//        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-    }
-    // this sets the media types. This will set all the media type that our source type above takes;
-    self.imagePicker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:self.imagePicker.sourceType];
-    
-    // show the image picker, Don't use animation because we don't want our camera view table to show
-    [self presentViewController:self.imagePicker animated:NO completion:nil];
+    // Defensive programming to makes sure there is no image and no video file path
+    if (self.image == nil && [self.videoFilePath length] == 0) {
+        // WHy is this in viewWillAppear and NOT viewDidLoad?
+        // Because viewDidLoad will only get called the first time the view loads, so if we dismiss the camera and come back, it wont dispay. BUt viewWillAppear is run everytime this view shows
+        // Setup UIImagePicker =======
+        // allocate and initialize a ui image picker controller and put it in our property
+        self.imagePicker = [[UIImagePickerController alloc] init];
+        // tells the image picker to use CameraViewController as it's delegate
+        self.imagePicker.delegate = self;
+        // We don't want the user editiing
+        self.imagePicker.allowsEditing = NO;
+        // limits videos to 10 seconds
+        self.imagePicker.videoMaximumDuration = 10;
+        // Setup a conditional, so this works on simulator. Because simulator doesn't have a camera
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            // sets the type to be a camera
+            self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        } else {
+            // photo library lets the user choose from all their albums, so can choose from things like the instagram album
+            self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            // saved photo album is limited to photos in the camera roll, but not photos in an album like the instagram album
+    //        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        }
+        // this sets the media types. This will set all the media type that our source type above takes;
+        self.imagePicker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:self.imagePicker.sourceType];
+        
+        // show the image picker, Don't use animation because we don't want our camera view table to show
+        [self presentViewController:self.imagePicker animated:NO completion:nil];
+        
+        }
     
 }
 
@@ -148,17 +152,17 @@
         if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera) {
             //save the image
             UIImageWriteToSavedPhotosAlbum(self.image, nil, nil, nil);
-        } else {
-            // calling the path method on the url gives us the local ios path as a string
-            self.videoFilePath = (__bridge NSString *)([[info objectForKey:UIImagePickerControllerMediaURL] path]);
-            if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera) {
-                // This will save the file to the album
-                if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(self.videoFilePath)) {
-                    UISaveVideoAtPathToSavedPhotosAlbum(self.videoFilePath, nil, nil, nil);
-                }
-            }
         }
-    }
+      } else {
+          // calling the path method on the url gives us the local ios path as a string
+          self.videoFilePath = (__bridge NSString *)([[info objectForKey:UIImagePickerControllerMediaURL] path]);
+          if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera) {
+              // This will save the file to the album
+              if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(self.videoFilePath)) {
+                  UISaveVideoAtPathToSavedPhotosAlbum(self.videoFilePath, nil, nil, nil);
+              }
+          }
+      }
   [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -176,11 +180,8 @@
     [self presentViewController:self.imagePicker animated:NO completion:nil];
   } else{
       
-    [self reset];
-      
     // Go to inbox tab
     [self.tabBarController setSelectedIndex:0];
-      
     [self uploadMessage];
   }
 }
@@ -190,14 +191,60 @@
 
 -(void)uploadMessage
 {
+  NSData   *fileData;
+  NSString *fileName;
+  NSString *fileType;
+  
+    //Check if its an image or video
     if (self.image != nil) {
+    // If image, shrink it
       // this will create an image that is teh size of the iphone 320 by 480. If you will be running on other devices you will need to add these
       UIImage *newImage = [self resizeImage:self.image toWidth:320.0f andHeight:480.0f];
+      // We use png because it can hold the same data as jpeg, but jpeg cant hold same data as png
+      // we convert image into NSData (specifically png)
+      fileData = UIImagePNGRepresentation(newImage);
+      fileName = @"image.png";
+      fileType = @"image";
+    } else {
+      // WE convert the video into NSData
+      fileData = [NSData dataWithContentsOfFile:self.videoFilePath];
+      fileName = @"video.mov";
+      fileType = @"video";
     }
-    //Check if its an image or video
-    // If image, shrink it
-    // Upload the file iteself
-    // Upoad the message details
+  // Create a PFfile with our move of vido
+  PFFile *file = [PFFile fileWithName:fileName data:fileData];
+  // Save the file to parse
+  [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    if (error) {
+      UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An Error Occurred" message:@"Please try sending messge again" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+      [alertView show];
+    } else {
+      // initiate a new PFObject
+      PFObject *message = [PFObject objectWithClassName:@"Messages"];
+      // can associate PFFile onto a PFObject
+      [message setObject:file forKey:@"file"];
+      // set file type
+      // this will be helpful when we are viewing messages in the inbox
+      [message setObject:fileType forKey:@"fileType"];
+      // set recipients
+      [message setObject:self.recipients forKey:@"recipientIds"];
+      [message setObject:[[PFUser currentUser] objectId] forKey: @"senderId"];
+      [message setObject:[[PFUser currentUser] username] forKey: @"senderName"];
+      
+      [message saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (error) {
+          UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An Error Occurred" message:@"Please try sending messge again" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+          [alertView show];
+        } else{
+            // reset everything when it's successful
+            [self reset];
+          // everything worked!
+        }
+      }];
+    }
+    
+  }];
+  
 }
 
 - (void)reset
