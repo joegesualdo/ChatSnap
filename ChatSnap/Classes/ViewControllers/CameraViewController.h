@@ -28,4 +28,11 @@
 
 // We are only going to store objectIds in our recipients array because it will be faster
 @property(nonatomic, strong)NSMutableArray *recipients;
+
+#pragma mark - IBActions
+
+- (IBAction)cancel:(UIBarButtonItem *)sender;
+
+- (IBAction)send:(UIBarButtonItem *)sender;
+
 @end

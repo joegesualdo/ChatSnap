@@ -162,4 +162,15 @@
   [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)cancel:(UIBarButtonItem *)sender {
+  // reset image, videoFilePath, and recipients propeties
+  self.image = nil;
+  self.videoFilePath = nil;
+  [self.recipients removeAllObjects];
+  // Go to inbox tab
+  [self.tabBarController setSelectedIndex:0];
+}
+
+- (IBAction)send:(UIBarButtonItem *)sender {
+}
 @end

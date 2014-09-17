@@ -47,7 +47,18 @@
                             <outlet property="delegate" destination="FOq-Gu-GJb" id="j5l-9Y-ZkJ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="v4G-I8-5e3"/>
+                    <navigationItem key="navigationItem" id="v4G-I8-5e3">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="kwl-yC-7X3">
+                            <connections>
+                                <action selector="cancel:" destination="FOq-Gu-GJb" id="HxH-pO-5Tj"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Send" id="fbh-8h-Mob">
+                            <connections>
+                                <action selector="send:" destination="FOq-Gu-GJb" id="ZNj-Jj-ml5"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gvc-6p-VvK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
