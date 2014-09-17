@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
 // Why does this inherit from UITableViewController and not UIImagePickerController?
 // Because we want to put the camera on top of (modally) a ui table view controller (our images table view)
@@ -21,5 +22,8 @@
 @property(nonatomic, strong)UIImage *image;
 
 @property(nonatomic,strong)NSString *videoFilePath;
+
+@property(nonatomic, strong)NSArray *friends;
+@property(nonatomic, strong)PFRelation *friendsRelation;
 
 @end

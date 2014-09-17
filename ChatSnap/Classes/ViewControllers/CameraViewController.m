@@ -19,6 +19,20 @@
 {
     [super viewWillAppear:animated];
     
+    PFQuery *query = [self.friendsRelation query];
+    [query orderByAscending:@"username"];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error){
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        } else{
+            self.friends = objects;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+        }
+    }];
+    
     // WHy is this in viewWillAppear and NOT viewDidLoad?
     // Because viewDidLoad will only get called the first time the view loads, so if we dismiss the camera and come back, it wont dispay. BUt viewWillAppear is run everytime this view shows
     // Setup UIImagePicker =======
@@ -51,18 +65,46 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // This will store the relation in self.friendsRelatioin
+    self.friendsRelation = [[PFUser currentUser] objectForKey:@"friendsRelation"];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return [self.friends count];
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"friendCell" forIndexPath:indexPath];
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    PFUser *user = self.friends[indexPath.row];
+    
+    cell.textLabel.text = user.username;
+    
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    
+    if (cell.accessoryType == UITableViewCellAccessoryNone) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else{
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
 }
 
 #pragma mark - Camera picker delegates
