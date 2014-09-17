@@ -13,5 +13,8 @@
 
 @property(strong, nonatomic)NSArray *allUsers;
 @property(strong, nonatomic)PFUser *currentUser;
+@property(nonatomic, strong)NSMutableArray *friends;
+
+-(BOOL)isFriend:(PFUser *)user;
 
 @end

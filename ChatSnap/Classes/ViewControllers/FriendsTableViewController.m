@@ -7,6 +7,7 @@
 //
 
 #import "FriendsTableViewController.h"
+#import "EditFriendsTableViewController.h"
 
 @interface FriendsTableViewController ()
 
@@ -59,5 +60,15 @@
     cell.textLabel.text = user.username;
     
     return cell;
+}
+
+#pragma mark - Navigation
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"showEditFriends"]) {
+        EditFriendsTableViewController *viewController = (EditFriendsTableViewController *)segue.destinationViewController;
+        viewController.friends = [self.friends mutableCopy];
+    }
 }
 @end

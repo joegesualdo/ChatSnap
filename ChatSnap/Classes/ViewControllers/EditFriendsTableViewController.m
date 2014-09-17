@@ -55,10 +55,17 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"friendCell" forIndexPath:indexPath];
     
+    PFUser *user = self.allUsers[indexPath.row];
+    
+    if ([self isFriend:user]) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
     // removes the gray background on selection when clicked
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    PFUser *user = self.allUsers[indexPath.row];
     
     cell.textLabel.text = user.username;
     
@@ -93,5 +100,20 @@
         }
     }];
 }
+
+#pragma mark - Helper methods
+
+-(BOOL)isFriend:(PFUser *)user
+{
+    for(PFUser *friend in self.friends){
+        // check the parse id to see if there is a match
+        if ([friend.objectId isEqualToString:user.objectId]){
+            return YES;
+        }
+    }
+    // if no match was found, return no
+    return NO;
+}
+
 
 @end
