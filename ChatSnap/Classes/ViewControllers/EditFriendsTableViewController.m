@@ -57,6 +57,7 @@
     
     PFUser *user = self.allUsers[indexPath.row];
     
+    // Add checkmark if user is already a friend
     if ([self isFriend:user]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else {
@@ -82,17 +83,25 @@
     // Defines a relation
     PFRelation *friendsRelation = [self.currentUser relationForKey:@"friendsRelation"];
     
-    // Show and hide checkmark when clicked
-    if (cell.accessoryType == UITableViewCellAccessoryNone) {
-        // this adds the friend locally
-        [friendsRelation addObject:user];
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    } else{
+    // Remove the checkmark, and the remote relation, and uers form self.friends if cell is clicked on
+    if ([self isFriend:user]) {
         cell.accessoryType = UITableViewCellAccessoryNone;
-        // this adds the friend locally
-        [friendsRelation removeObject:user];
+        
+        // find the friend in the self.friend array, and remove it
+        for(PFUser *friend in self.friends){
+            // check the parse id to see if there is a match
+            if ([friend.objectId isEqualToString:user.objectId]){
+                [self.friends removeObject:friend];
+                // This is optimization so it doen't continue looping after we find it
+                break;
+            }
+        }
+    // Add the checkmark, and the remote relation, and uers form self.friends if cell is clicked on
+    } else {
+        [friendsRelation addObject:user];
+        [self.friends addObject:user];
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
-    
     // This will save the relations we created above
     [self.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (error){
