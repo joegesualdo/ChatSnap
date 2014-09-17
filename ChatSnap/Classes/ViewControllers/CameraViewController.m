@@ -14,10 +14,12 @@
 
 @implementation CameraViewController
 
-- (void)viewDidLoad
+-(void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewWillAppear:animated];
     
+    // WHy is this in viewWillAppear and NOT viewDidLoad?
+    // Because viewDidLoad will only get called the first time the view loads, so if we dismiss the camera and come back, it wont dispay. BUt viewWillAppear is run everytime this view shows
     // Setup UIImagePicker =======
     // allocate and initialize a ui image picker controller and put it in our property
     self.imagePicker = [[UIImagePickerController alloc] init];
@@ -40,6 +42,12 @@
     
     // show the image picker, Don't use animation because we don't want our camera view table to show
     [self presentViewController:self.imagePicker animated:NO completion:nil];
+    
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
 }
 
 #pragma mark - Table view data source
@@ -52,6 +60,16 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 0;
+}
+
+#pragma mark - Camera picker delegates
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    // This will dismiss the camera
+    [self dismissViewControllerAnimated:NO completion:nil];
+    // This will bring us the the first tab (inbox) of our tab bar
+    [self.tabBarController setSelectedIndex:0];
 }
 
 @end
