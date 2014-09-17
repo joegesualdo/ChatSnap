@@ -26,4 +26,6 @@
 @property(nonatomic, strong)NSArray *friends;
 @property(nonatomic, strong)PFRelation *friendsRelation;
 
+// We are only going to store objectIds in our recipients array because it will be faster
+@property(nonatomic, strong)NSMutableArray *recipients;
 @end

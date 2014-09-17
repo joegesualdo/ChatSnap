@@ -68,6 +68,8 @@
     
     // This will store the relation in self.friendsRelatioin
     self.friendsRelation = [[PFUser currentUser] objectForKey:@"friendsRelation"];
+    
+    self.recipients = [[NSMutableArray alloc]init];
 }
 
 #pragma mark - Table view data source
@@ -93,6 +95,13 @@
     
     cell.textLabel.text = user.username;
     
+    // This prevent checkmarks showing on cell that we didn't check. This happens becuase the table view may have resused a cell that we had a checkmark on
+    if ([self.recipients containsObject:user.objectId]) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
     return cell;
 }
 
@@ -100,10 +109,16 @@
 {
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     
+    PFUser *user = [self.friends objectAtIndex:indexPath.row];
+    
     if (cell.accessoryType == UITableViewCellAccessoryNone) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        // We are only going to store objectIds in our recipients array because it will be faster
+        [self.recipients addObject:user.objectId];
     } else{
         cell.accessoryType = UITableViewCellAccessoryNone;
+        // remove the objectId from recipients array
+        [self.recipients removeObject:user.objectId];
     }
 }
 
