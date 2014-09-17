@@ -45,6 +45,8 @@
 {
     [super viewDidLoad];
     
+    // we allocate the movie player so we can assign it properties later
+    self.moviePlayer = [[MPMoviePlayerController alloc] init];
     
     // Since the segway we created from the inbox to the login, doen't have a button trigger, we must trigger the segue programatically.
 }
@@ -89,7 +91,19 @@
     if ([fileType isEqualToString:@"image"]) {
         [self performSegueWithIdentifier:@"showImage" sender:self];
     } else{
+        PFFile *videoFile = [self.selectedMessage objectForKey:@"file"];
+        NSURL *fileUrl = [NSURL URLWithString:videoFile.url];
+        //sets the url for the video
+        self.moviePlayer.contentURL = fileUrl;
+        //this sets up oru movei player to play
+        [self.moviePlayer prepareToPlay];
         
+        // This will provide us with a thumbnail of the first keyframe while it waits for the movie to load
+        [self.moviePlayer thumbnailImageAtTime:0 timeOption:MPMovieTimeOptionNearestKeyFrame];
+        
+        [self.view addSubview:self.moviePlayer.view];
+        // This sets it to full screem, can only be called after we add the view to our heirachy
+        [self.moviePlayer setFullscreen:YES animated:YES];
     }
     
 }
