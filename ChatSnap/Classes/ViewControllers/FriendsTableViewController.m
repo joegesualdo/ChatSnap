@@ -15,12 +15,10 @@
 
 @implementation FriendsTableViewController
 
-- (void)viewDidLoad
+-(void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewWillAppear:animated];
     
-    // This will store the relation in self.friendsRelatioin
-    self.friendsRelation = [[PFUser currentUser] objectForKey:@"friendsRelation"];
     
     PFQuery *query = [self.friendsRelation query];
     [query orderByAscending:@"username"];
@@ -35,6 +33,14 @@
             });
         }
     }];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    // This will store the relation in self.friendsRelatioin
+    self.friendsRelation = [[PFUser currentUser] objectForKey:@"friendsRelation"];
 }
 
 #pragma mark - Table view data source

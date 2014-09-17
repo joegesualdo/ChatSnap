@@ -14,10 +14,8 @@
 
 @implementation EditFriendsTableViewController
 
-- (void)viewDidLoad
+-(void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
-    
     // This creates a query for all the users
     // [PFUser query] is a query for ALL the users
     PFQuery *query = [PFUser query];
@@ -34,6 +32,13 @@
             });
         }
     }];
+    
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
     
     // sets the current user to self.currentUser
     self.currentUser = [PFUser currentUser];
@@ -91,6 +96,7 @@
         for(PFUser *friend in self.friends){
             // check the parse id to see if there is a match
             if ([friend.objectId isEqualToString:user.objectId]){
+                [friendsRelation removeObject:user];
                 [self.friends removeObject:friend];
                 // This is optimization so it doen't continue looping after we find it
                 break;
@@ -98,9 +104,10 @@
         }
     // Add the checkmark, and the remote relation, and uers form self.friends if cell is clicked on
     } else {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
         [friendsRelation addObject:user];
         [self.friends addObject:user];
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        // This will save the relations we created above
     }
     // This will save the relations we created above
     [self.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
