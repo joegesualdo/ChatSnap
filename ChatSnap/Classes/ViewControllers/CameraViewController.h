@@ -18,4 +18,8 @@
 // Since UIImagePickerController will be a modal it will entirely exist within the contruct of this camera view controler
 @property(strong, nonatomic)UIImagePickerController *imagePicker;
 
+@property(nonatomic, strong)UIImage *image;
+
+@property(nonatomic,strong)NSString *videoFilePath;
+
 @end

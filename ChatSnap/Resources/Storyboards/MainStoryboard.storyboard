@@ -88,7 +88,7 @@
             </objects>
             <point key="canvasLocation" x="878" y="20"/>
         </scene>
-        <!--Edit Friends Table View Controller - Edit Friends-->
+        <!--Edit Friends Table View Controller - Recipients-->
         <scene sceneID="5TA-ym-Ro2">
             <objects>
                 <tableViewController id="EQL-wH-Q6A" customClass="EditFriendsTableViewController" sceneMemberID="viewController">
@@ -120,7 +120,7 @@
                             <outlet property="delegate" destination="EQL-wH-Q6A" id="5rg-DS-eGj"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Edit Friends" id="AfD-1H-RZd"/>
+                    <navigationItem key="navigationItem" title="Recipients" id="AfD-1H-RZd"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F2w-ra-pF4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
