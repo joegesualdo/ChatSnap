@@ -8,6 +8,7 @@
 
 #import "InboxViewController.h"
 #import <Parse/Parse.h>
+#import "ImageViewController.h"
 
 @interface InboxViewController ()
 
@@ -78,6 +79,20 @@
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    self.selectedMessage = self.messages[indexPath.row];
+    
+    NSString *fileType = [self.selectedMessage objectForKey:@"fileType"];
+    
+    if ([fileType isEqualToString:@"image"]) {
+        [self performSegueWithIdentifier:@"showImage" sender:self];
+    } else{
+        
+    }
+    
+}
 
 #pragma mark - Navigation
 
@@ -86,6 +101,11 @@
     if ([segue.identifier isEqualToString:@"showLogin"]) {
         // THis will hide the tab bar at the bottom of the login screen
         [segue.destinationViewController setHidesBottomBarWhenPushed:YES];
+    } else if ([segue.identifier isEqualToString:@"showImage"]){
+        ImageViewController *destinationViewController = (ImageViewController *)segue.destinationViewController;
+        // Hides the tab bar in image view
+        [destinationViewController setHidesBottomBarWhenPushed:YES];
+        destinationViewController.message = self.selectedMessage;
     }
 }
 

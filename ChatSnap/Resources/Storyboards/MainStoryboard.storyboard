@@ -64,6 +64,34 @@
             </objects>
             <point key="canvasLocation" x="878" y="712"/>
         </scene>
+        <!--Image View Controller-->
+        <scene sceneID="pmx-CT-VTr">
+            <objects>
+                <viewController id="sDz-Mi-YOM" customClass="ImageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Wia-tY-teO"/>
+                        <viewControllerLayoutGuide type="bottom" id="AXW-eS-jzR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yqf-Jb-HDa">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="esv-ia-zgg">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="zb8-eU-NGs"/>
+                    <connections>
+                        <outlet property="imageView" destination="esv-ia-zgg" id="PjQ-d5-c5d"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T7o-qm-0dU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1357" y="-1391"/>
+        </scene>
         <!--Friends Table View Controller - Friends-->
         <scene sceneID="7Bz-BD-97L">
             <objects>
@@ -234,6 +262,7 @@
                     </navigationItem>
                     <connections>
                         <segue destination="606-ci-Ds6" kind="push" identifier="showLogin" id="Wf6-aI-wJE"/>
+                        <segue destination="sDz-Mi-YOM" kind="push" identifier="showImage" id="amn-FC-YTw"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9w1-mc-gRk" userLabel="First Responder" sceneMemberID="firstResponder"/>
