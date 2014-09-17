@@ -37,11 +37,16 @@
     self.navigationItem.title = senderName;
 }
 
-#pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+// we start ttimer in viewDidAppear so it waits for the image to load
+-(void)viewDidAppear:(BOOL)animated
 {
-    
+    [super viewDidAppear:animated];
+    // This will start a time, adn strigger the timeoutmethod after 10 seconds
+    [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(timeout) userInfo:nil repeats:NO];
+}
+
+-(void)timeout{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
