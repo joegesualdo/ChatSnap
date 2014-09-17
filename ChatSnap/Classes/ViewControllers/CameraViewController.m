@@ -163,14 +163,70 @@
 }
 
 - (IBAction)cancel:(UIBarButtonItem *)sender {
-  // reset image, videoFilePath, and recipients propeties
-  self.image = nil;
-  self.videoFilePath = nil;
-  [self.recipients removeAllObjects];
+  [self reset];
   // Go to inbox tab
   [self.tabBarController setSelectedIndex:0];
 }
 
 - (IBAction)send:(UIBarButtonItem *)sender {
+  // This is defensive programming if there is no image or video
+  if (self.image == nil && [self.videoFilePath length] == 0) {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Try again" message:@"Please capture or select a photo or video to share!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    [alertView show];
+    [self presentViewController:self.imagePicker animated:NO completion:nil];
+  } else{
+      
+    [self reset];
+      
+    // Go to inbox tab
+    [self.tabBarController setSelectedIndex:0];
+      
+    [self uploadMessage];
+  }
 }
+
+#pragma mark - Helper methods
+
+
+-(void)uploadMessage
+{
+    if (self.image != nil) {
+      // this will create an image that is teh size of the iphone 320 by 480. If you will be running on other devices you will need to add these
+      UIImage *newImage = [self resizeImage:self.image toWidth:320.0f andHeight:480.0f];
+    }
+    //Check if its an image or video
+    // If image, shrink it
+    // Upload the file iteself
+    // Upoad the message details
+}
+
+- (void)reset
+{
+    // reset image, videoFilePath, and recipients propeties
+    self.image = nil;
+    self.videoFilePath = nil;
+    [self.recipients removeAllObjects];
+}
+
+-(UIImage *)resizeImage:(UIImage *)image toWidth:(float)width andHeight:(float)height
+{
+  //CGsize defines the rectangle that will be used as the size of our new image
+  // CG stands for core graphics
+  CGSize newSize = CGSizeMake(width, height);
+  // create an actual rectangel using these specifications
+  CGRect newRectangle = CGRectMake(0, 0, width, height);
+  //Need to create a context in which to manuipulate our image
+  // This created a bitmap graphic context for a specified rectangular area. We can then draw whatever we want in this context, then we capture the resulting image. So we are going to redraw the big iimage from the camera and redraw it as a smaller version of its self. Then we'll capture teh cotext in a new variable
+  UIGraphicsBeginImageContext(newSize);
+  [self.image drawInRect:newRectangle];
+  // so nowthe smaller version of our index exists in the bitmap context we created
+  UIImage * resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+  // now we have the new resized image in a variabel
+  // Now we need to end the context. This is the opposite method as UIGraphicsBeginImageContext(newSize) above
+  // YOU ALWAYS need a beginning and ended paried together
+  UIGraphicsEndImageContext();
+  
+  return resizedImage;
+}
+
 @end
