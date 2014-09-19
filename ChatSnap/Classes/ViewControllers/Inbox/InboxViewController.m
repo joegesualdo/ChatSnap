@@ -22,6 +22,8 @@
     // Only show the root screen if user is logged in
     if (!currentUser) {
       [self performSegueWithIdentifier:@"showLogin" sender:self];
+        //returns so we don't run anymore code
+        return;
     }
     
     // query the message class (which is PFObject)
